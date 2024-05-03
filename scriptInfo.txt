@@ -1,0 +1,7 @@
+Hello User, if you is here, is for control of leds in your keyboard
+this script needed use of 'sudo' because need access to folders somewhat
+sensitive. But you dont have to fear, this script is very secure. you Can 
+show the code in the repository. 
+
+@Github: https://github.com/foxomax 
+
