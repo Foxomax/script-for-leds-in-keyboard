@@ -5,7 +5,7 @@ location=""
 
 # Función para buscar el archivo
 findArchive() {
-    if find /sys/class/leds/input4::scrolllock -name "input8::scrolllock" >/dev/null 2>&1; then
+    if find /sys/class/leds/input0::scrolllock -name "input8::scrolllock" >/dev/null 2>&1; then
         location="/sys/class/leds/input4::scrolllock"
     elif find /sys/class/leds/input17::scrolllock -name "input17::scrolllock" >/dev/null 2>&1; then
         location="/sys/class/leds/input17::scrolllock"
@@ -54,6 +54,21 @@ if findArchive; then
    		echo -e "Comando no reconocido..\n help: n, y, q"
 	fi
    done
+else
+	echo "Leds On, si necesitas apagarlas escribe n y para encenderlas y, y para salir q"
+   while [ true ]; do
+        read actions
+        if [ "$actions" == "n" ]; then
+                echo 0 | sudo tee "$location/brightness"
+        elif [ "$actions" == "y" ]; then
+                echo 255 | sudo tee "$location/brightness"
+        elif [ "$actions" == "q" ]; then
+                exit 0
+        else
+                echo -e "Comando no reconocido..\n help: n, y, q"
+        fi
+   done
+
    echo "hello"
 fi
  	
