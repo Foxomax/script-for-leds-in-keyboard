@@ -4,13 +4,15 @@ caracterAnimation="\ | /"
 location=""
 
 findArchive() {
-    if find /sys/class/leds/input4::scrolllock -name "input8::scrolllock" >/dev/null 2>&1; then
-        location="/sys/class/leds/input4::scrolllock"
-    elif find /sys/class/leds/input17::scrolllock -name "input17::scrolllock" >/dev/null 2>&1; then
-        location="/sys/class/leds/input17::scrolllock"
-    elif find /sys/class/leds/input19::scrolllock -name "input19::scrolllock" >/dev/null 2>&1; then
-        location="/sys/class/leds/input19::scrolllock"
-    else
+    # Iterar desde input4 hasta input40
+    for i in {4..40}; do
+        if [ -e "/sys/class/leds/input${i}::scrolllock" ]; then
+            location="/sys/class/leds/input${i}::scrolllock"
+            break
+        fi
+    done
+
+    if [ -z "$location" ]; then
         echo "It was not found on any of the common routes. You must do it manually,"
         echo "go to: /sys/class/leds and look for a file that contains 'scrolllock'."
         echo "Escribe la ruta: "
